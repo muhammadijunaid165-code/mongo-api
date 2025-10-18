@@ -1,14 +1,21 @@
 {
-  "name": "mongo-api",
+  "name": "ai-recruitment-platform",
+  "private": true,
   "version": "1.0.0",
-  "main": "server.js",
   "type": "module",
+  "workspaces": [
+    "apps/backend",
+    "apps/web"
+  ],
   "scripts": {
-    "start": "node server.js"
+    "dev:backend": "npm --prefix apps/backend run dev",
+    "dev:web": "npm --prefix apps/web run dev",
+    "dev:ai": "python3 apps/ai-service/app.py",
+    "dev": "concurrently -n backend,web,ai \"npm run dev:backend\" \"npm run dev:web\" \"npm run dev:ai\"",
+    "build": "npm --prefix apps/web run build",
+    "start": "npm --prefix apps/backend start"
   },
-  "dependencies": {
-    "express": "^4.18.2",
-    "mongoose": "^8.0.0",
-    "cors": "^2.8.5"
+  "devDependencies": {
+    "concurrently": "^8.2.1"
   }
 }
